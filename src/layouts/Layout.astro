@@ -48,6 +48,8 @@ let {
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+const isArchivePage =
+	Astro.url.pathname === "/archive" || Astro.url.pathname === "/archive/";
 
 // 获取导航栏透明模式配置
 const navbarTransparentMode =
@@ -213,6 +215,7 @@ const bannerOffset =
 				"enable-card-border": siteConfig.card?.border,
 				"home-page": isHomePage,
 				"inner-page": !isHomePage,
+				"archive-page": isArchivePage,
 			},
 		]}
 
@@ -292,6 +295,21 @@ const bannerOffset =
 			.enable-banner.inner-page #top-row {
 				height: calc(var(--banner-height) - 4.5rem);
 			}
+		}
+
+		/* 归档是索引型页面，使用完整内容宽度，避免两侧栏把时间轴挤窄。 */
+		.archive-page #main-grid {
+			grid-template-columns: minmax(0, 1fr) !important;
+		}
+
+		.archive-page #sidebar,
+		.archive-page .right-sidebar-container {
+			display: none !important;
+		}
+
+		.archive-page #swup-container {
+			grid-column: 1 / -1 !important;
+			width: 100%;
 		}
 
 		/* Water waves animation - GPU 加速优化 */

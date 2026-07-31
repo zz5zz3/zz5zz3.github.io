@@ -72,8 +72,12 @@ const {
 		const isMobile = window.innerWidth < 1280;
 		const isHomePage =
 			window.location.pathname === "/" || window.location.pathname === "";
+		const isArchivePage =
+			window.location.pathname === "/archive" ||
+			window.location.pathname === "/archive/";
 		document.body.classList.toggle("home-page", isHomePage);
 		document.body.classList.toggle("inner-page", !isHomePage);
+		document.body.classList.toggle("archive-page", isArchivePage);
 
 		mainContent.classList.remove("mobile-main-no-banner", "no-banner-layout");
 		mainContent.style.removeProperty("min-height");
