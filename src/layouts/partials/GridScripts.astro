@@ -72,12 +72,8 @@ const {
 		const isMobile = window.innerWidth < 1280;
 		const isHomePage =
 			window.location.pathname === "/" || window.location.pathname === "";
-		const isArchivePage =
-			window.location.pathname === "/archive" ||
-			window.location.pathname === "/archive/";
 		document.body.classList.toggle("home-page", isHomePage);
 		document.body.classList.toggle("inner-page", !isHomePage);
-		document.body.classList.toggle("archive-page", isArchivePage);
 
 		mainContent.classList.remove("mobile-main-no-banner", "no-banner-layout");
 		mainContent.style.removeProperty("min-height");
@@ -176,8 +172,7 @@ const {
 
 	// 立即执行，在页面渲染前应用壁纸模式和布局模式，避免闪烁
 	(function () {
-		const wallpaperMode =
-			wallpaperEnabled ? (localStorage.getItem("wallpaperMode") || defaultWallpaperMode) : defaultWallpaperMode;
+		const wallpaperMode = defaultWallpaperMode;
 		const body = document.body;
 		applyWallpaperVisualSettings(wallpaperMode);
 
@@ -274,8 +269,7 @@ const {
 
 	// 根据壁纸模式动态设置 banner 和全屏壁纸的显示
 	function applyWallpaperMode() {
-		const wallpaperMode =
-			wallpaperEnabled ? (localStorage.getItem("wallpaperMode") || defaultWallpaperMode) : defaultWallpaperMode;
+		const wallpaperMode = defaultWallpaperMode;
 
 		// 同步波浪状态：配置 enable 优先，其次 localStorage
 		if (!wavesEnabled) {

@@ -48,8 +48,6 @@ let {
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
 const isHomePage = Astro.url.pathname === "/" || Astro.url.pathname === "";
-const isArchivePage =
-	Astro.url.pathname === "/archive" || Astro.url.pathname === "/archive/";
 
 // 获取导航栏透明模式配置
 const navbarTransparentMode =
@@ -215,7 +213,6 @@ const bannerOffset =
 				"enable-card-border": siteConfig.card?.border,
 				"home-page": isHomePage,
 				"inner-page": !isHomePage,
-				"archive-page": isArchivePage,
 			},
 		]}
 
@@ -295,21 +292,32 @@ const bannerOffset =
 			.enable-banner.inner-page #top-row {
 				height: calc(var(--banner-height) - 4.5rem);
 			}
-		}
 
-		/* 归档是索引型页面，使用完整内容宽度，避免两侧栏把时间轴挤窄。 */
-		.archive-page #main-grid {
-			grid-template-columns: minmax(0, 1fr) !important;
-		}
+			/*
+			 * 内页把两个侧栏纵向收纳在左列，主内容独占右列。
+			 * 既保留所有小组件，也避免三栏布局把归档和独立页面挤窄。
+			 */
+			.inner-page #main-grid {
+				grid-template-columns: 17.5rem minmax(0, 1fr) !important;
+			}
 
-		.archive-page #sidebar,
-		.archive-page .right-sidebar-container {
-			display: none !important;
-		}
+			.inner-page #sidebar {
+				grid-column: 1 / 2 !important;
+				grid-row: 1 / 2 !important;
+			}
 
-		.archive-page #swup-container {
-			grid-column: 1 / -1 !important;
-			width: 100%;
+			.inner-page .right-sidebar-container {
+				display: block !important;
+				grid-column: 1 / 2 !important;
+				grid-row: 2 / 3 !important;
+				max-width: 17.5rem;
+			}
+
+			.inner-page #swup-container {
+				grid-column: 2 / 3 !important;
+				grid-row: 1 / span 2 !important;
+				width: 100%;
+			}
 		}
 
 		/* Water waves animation - GPU 加速优化 */

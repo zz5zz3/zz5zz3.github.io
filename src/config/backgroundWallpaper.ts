@@ -14,7 +14,7 @@ export const fullscreenWallpaperConfig: FullscreenWallpaperConfig = {
 	zIndex: -1,
 	opacity: 0.8,
 	blur: 1,
-	switchable: true,
+	switchable: false,
 	overlay: {
 		opacity: 0.8, // 壁纸不透明度，0-1
 		blur: 1.5, // 背景模糊半径（px）
