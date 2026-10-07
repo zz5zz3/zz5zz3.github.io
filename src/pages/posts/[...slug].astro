@@ -95,6 +95,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const showCoverInContent =
+	entry.data.showCoverInContent ?? siteConfig.showCoverInContent;
 const { Content, headings } = await render(entry);
 const { remarkPluginFrontmatter } = await render(entry);
 
@@ -286,7 +288,7 @@ const jsonLd = {
 				{
 					(!entry.data.image ||
 						(entry.data.image &&
-							!siteConfig.showCoverInContent)) && (
+							!showCoverInContent)) && (
 						<div class="mt-4 border-(--line-divider) border-dashed border-b mb-5" />
 					)
 				}
@@ -295,7 +297,7 @@ const jsonLd = {
 			<!-- always show cover as long as it has one -->
 
 			{
-				entry.data.image && siteConfig.showCoverInContent && (
+				entry.data.image && showCoverInContent && (
 					<>
 						<div class="mt-4" />
 						<Image
