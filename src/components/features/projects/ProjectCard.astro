@@ -11,6 +11,7 @@ const hasImage = !!project.image;
 const showImageArea = project.showImage !== false && hasImage;
 const hasVisitUrl = !!project.visitUrl;
 const hasSourceCode = !!project.sourceCode;
+const hasDetailUrl = !!project.detailUrl;
 
 const getStatusText = (status: string) => {
 	switch (status) {
@@ -99,8 +100,17 @@ const getStatusText = (status: string) => {
 		}
 
 		{
-			(hasVisitUrl || hasSourceCode) && (
+			(hasDetailUrl || hasVisitUrl || hasSourceCode) && (
 				<div class="flex gap-2">
+					{hasDetailUrl && (
+						<a
+							href={project.detailUrl!}
+							class="btn-regular flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"
+						>
+							<Icon name="material-symbols:article-outline" class="text-base w-4 h-4" />
+							查看成果
+						</a>
+					)}
 					{hasVisitUrl && (
 						<a
 							href={project.visitUrl!}
